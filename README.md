@@ -44,7 +44,7 @@ output_value = {
 1. 先把dictionary轉成list
     - input: {"a": {"b": "c"}} => output: {"c": {"b": "a"}}
 ```python
-def first_reversed_dict(input_dict: Union[Dict[str, Dict], Dict[str, str]]) -> List[str]:
+def reversed_dict(input_dict: Union[Dict[str, Dict], Dict[str, str]]) -> List[str]:
     """
     reversed dictionary, ex: input: {"a": {"b": "c"}} => output: ["a", "b", "c"]
     :param input_dict:
@@ -71,25 +71,6 @@ def first_reversed_dict(input_dict: Union[Dict[str, Dict], Dict[str, str]]) -> L
 ```
 
 2. 再透過list for loop組成dictionary
-    - input: ["a", "b", "c"] => output: {"c": {"b": "a"}}
-```python
-def compose_dict(input_list: Optional[List[str]]) -> Union[Dict[str, Dict], str]:
-    """
-    compose dictionary, ex: input: ["a", "b", "c"] => output: {"c": {"b": "a"}}
-    :param input_list:
-    :return:
-    """
-    if not isinstance(input_list, list):
-        return ""
-
-    if len(input_list) == 1:
-        return input_list[0]
-    else:
-        value = input_list.pop(0)
-        return {value: compose_dict(input_list)}
-```
-
-3. 再透過list遞迴組成dictionary
     - ["a", "b", "c"] => output: {"c": {"b": "a"}}
 ```python
 def second_reversed_dict(input_dict: Union[Dict[str, Dict], Dict[str, str]]) -> Union[Dict[str, Dict], List]:
@@ -108,6 +89,25 @@ def second_reversed_dict(input_dict: Union[Dict[str, Dict], Dict[str, str]]) -> 
         return ans
     else:
         return result
+```
+
+3. 再透過list遞迴組成dictionary
+    - input: ["a", "b", "c"] => output: {"c": {"b": "a"}}
+```python
+def compose_dict(input_list: Optional[List[str]]) -> Union[Dict[str, Dict], str]:
+    """
+    compose dictionary, ex: input: ["a", "b", "c"] => output: {"c": {"b": "a"}}
+    :param input_list:
+    :return:
+    """
+    if not isinstance(input_list, list):
+        return ""
+
+    if len(input_list) == 1:
+        return input_list[0]
+    else:
+        value = input_list.pop(0)
+        return {value: compose_dict(input_list)}
 ```
 
 ## unittest說明
