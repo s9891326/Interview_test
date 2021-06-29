@@ -1,9 +1,9 @@
 # Interview Test
 
 ## outline
-1. [題目說明](題目說明)
-2. [程式講解](程式講解)
-3. [UnitTest說明](unittest說明)
+1. [題目說明](#題目說明)
+2. [程式講解](#程式講解)
+3. [UnitTest說明](#unittest說明)
 
 ## 題目說明
 ```
@@ -92,20 +92,22 @@ def compose_dict(input_list: Optional[List[str]]) -> Union[Dict[str, Dict], str]
 3. 再透過list遞迴組成dictionary
     - ["a", "b", "c"] => output: {"c": {"b": "a"}}
 ```python
-def compose_dict(input_list: Optional[List[str]]) -> Union[Dict[str, Dict], str]:
+def second_reversed_dict(input_dict: Union[Dict[str, Dict], Dict[str, str]]) -> Union[Dict[str, Dict], List]:
     """
-    compose dictionary, ex: input: ["a", "b", "c"] => output: {"c": {"b": "a"}}
-    :param input_list:
+    reversed dictionary, ex: input: {"a": {"b": "c"}} => output: {"c": {"b": "a"}}
+    :param input_dict:
     :return:
     """
-    if not isinstance(input_list, list):
-        return ""
+    result = reversed_dict(input_dict)
 
-    if len(input_list) == 1:
-        return input_list[0]
+    if result:
+        ans = result[0]
+        for i in range(1, len(result)):
+            temp_dict = {result[i]: ans}
+            ans = temp_dict
+        return ans
     else:
-        value = input_list.pop(0)
-        return {value: compose_dict(input_list)}
+        return result
 ```
 
 ## unittest說明
